@@ -42,10 +42,11 @@ import BibTeX from "./components/BibTeX.astro";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/starwind/tabs";
 
 import hero from "./assets/sp3-hero.jpg";
-import baselines from "./assets/sp3-baselines.jpg";
+import baselines from "./assets/sp3-baselines.png";
 import afhqComparisons from "./assets/sp3-afhq-comparisons.jpg";
 import celebaComparisons from "./assets/sp3-celeba-comparisons.jpg";
-import anytime from "./assets/sp3-anytime.jpg";
+import anytime from "./assets/sp3-anytime.png";
+import time from "./assets/sp3-time.png";
 import projection from "./assets/sp3-projection.png";
 
 <HighlightedSection>
@@ -249,7 +250,7 @@ $60\times$ faster than DPS, its closest competitors in visual quality.
   <Figure>
     <Picture
       slot="figure"
-      src="../assets/sp3-time.pdf"
+      src={time}
       alt="Perceptual quality versus runtime for SP3 and competing restoration methods"
     />
     <Fragment slot="caption">
