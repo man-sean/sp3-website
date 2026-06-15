@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  labels: string[];
+  caption_header: string;
+  caption: string;
+}
+
+const { src, alt, labels, caption_header, caption } = Astro.props;
+const columns = `repeat(${labels.length}, minmax(0, 1fr))`;
+---
+
+<div class="full-bleed overflow-x-auto px-6 pb-2">
+  <div class="mx-auto max-w-[100rem] min-w-[64rem]">
+    <div
+      class="mb-2 grid text-center text-sm font-medium text-zinc-700 dark:text-zinc-300"
+      style={`grid-template-columns: ${columns};`}
+    >
+      {labels.map((label) => <div>{label}</div>)}
+    </div>
+    <Image
+      class="w-full rounded-lg"
+      src={src}
+      alt={alt}
+      layout="full-width"
+      format="avif"
+    />
+    <Fragment slot="caption">
+      <strong>{caption_header}</strong> {caption}
+    </Fragment>
+  </div>
+</div>
