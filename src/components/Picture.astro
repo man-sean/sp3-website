@@ -7,21 +7,32 @@ interface Props {
   alt: string;
   priority?: boolean;
   invertInDarkMode?: boolean;
+  className?: string;
 }
 
-const { src, alt, priority = false, invertInDarkMode = false } = Astro.props;
+const {
+  src,
+  alt,
+  priority = false,
+  invertInDarkMode = false,
+  className = "",
+} = Astro.props;
 
 let image: ImageMetadata;
 
-if (typeof src === "string") {
+if (typeof src === "string" && src.endsWith(".pdf")) {
   image = await renderPDF(src);
+} else if (typeof src === "string") {
+  throw new Error(
+    `Picture.astro: string paths must end in ".pdf". Got "${src}". For raster images, import them with an ESM import and pass the ImageMetadata object.`,
+  );
 } else {
   image = src;
 }
 ---
 
 <AstroPicture
-  class={`rounded-lg max-h-[calc(100svh-3rem)] max-w-full w-min mx-auto ${invertInDarkMode ? "dark:invert" : ""}`}
+  class={`rounded-lg max-h-[calc(100svh-3rem)] max-w-full w-min mx-auto ${invertInDarkMode ? "dark:invert" : ""} ${className}`}
   src={image}
   alt={alt}
   layout="constrained"
