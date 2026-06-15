@@ -1,0 +1,56 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<div class="not-prose relative my-6 w-full">
+  <button
+    type="button"
+    class="absolute top-3 right-3 rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+    data-bibtex-copy
+    aria-label="Copy BibTeX to clipboard"
+  >
+    Copy BibTeX
+  </button>
+  <pre
+    class="overflow-x-auto rounded-lg bg-zinc-200 p-4 pt-14 text-sm text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"><code data-bibtex-source>{text}</code></pre>
+</div>
+
+<script>
+  const copyButtons =
+    document.querySelectorAll<HTMLButtonElement>("[data-bibtex-copy]");
+
+  copyButtons.forEach((button) => {
+    if (button.dataset.initialized === "true") return;
+    button.dataset.initialized = "true";
+
+    button.addEventListener("click", async () => {
+      const source = button.parentElement?.querySelector(
+        "[data-bibtex-source]",
+      );
+      const bibtex = source?.textContent ?? "";
+      if (!bibtex) return;
+
+      try {
+        await navigator.clipboard.writeText(bibtex);
+      } catch {
+        const textarea = document.createElement("textarea");
+        textarea.value = bibtex;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      button.textContent = "Copied";
+      window.setTimeout(() => {
+        button.textContent = "Copy BibTeX";
+      }, 1200);
+    });
+  });
+</script>

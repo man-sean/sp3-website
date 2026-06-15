@@ -110,3 +110,56 @@ import { Icon } from "astro-icon/components";
 
 <Icon name={"simple-icons:huggingface"} />
 ```
+
+## Paper metadata
+
+The title, authors, conference, resource links, and optional DOI are configured
+in the frontmatter at the top of `src/paper.mdx`. Author links, resource links,
+and DOI links open in a new tab.
+
+```yaml
+conference: Conference Name
+doi:
+  url: https://doi.org/10.0000/example
+  text: 10.0000/example
+```
+
+## Figure captions
+
+The `Figure` caption slot accepts MDX, including links, emphasis, and inline
+math. This avoids passing raw HTML strings into the component.
+
+```mdx
+<Figure>
+  <Picture slot="figure" src={figure} alt="Description of the figure" />
+  <Fragment slot="caption">
+    **Method overview.** The estimate $\hat{x}$ is conditioned on $y$.
+  </Fragment>
+</Figure>
+```
+
+## Comparison labels
+
+Use `itemOneLabel` and `itemTwoLabel` to customize the labels over a comparison
+slider. They default to `Before` and `After`.
+
+```mdx
+<Comparison client:idle itemOneLabel="Degraded" itemTwoLabel="Restored">
+  ...
+</Comparison>
+```
+
+## BibTeX
+
+The `BibTeX` component displays a citation in a styled code block and provides
+a copy-to-clipboard button.
+
+```mdx
+import BibTeX from "./components/BibTeX.astro";
+
+<BibTeX
+  text={String.raw`@article{example,
+  title = {Example paper}
+}`}
+/>
+```

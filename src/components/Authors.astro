@@ -13,7 +13,13 @@ const { authors } = Astro.props;
     authors.map((author) => (
       <div class="flex flex-col items-center text-center">
         <div class="flex flex-row text-xl">
-          {author.url ? <a href={author.url}>{author.name}</a> : author.name}
+          {author.url ? (
+            <a href={author.url} target="_blank" rel="noopener noreferrer">
+              {author.name}
+            </a>
+          ) : (
+            author.name
+          )}
           {author.notes && (
             <sup class="text-xl">
               {author.notes.map(

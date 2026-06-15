@@ -54,11 +54,15 @@ export default defineConfig([
     files: ["**/*.css"],
     plugins: { css },
     language: "css/css",
-    languageOptions: { customSyntax: tailwind4 },
+    languageOptions: {
+      customSyntax: tailwind4,
+      tolerant: true,
+    },
     extends: [css.configs.recommended],
     rules: {
       // Disable rules that don't work well with Tailwind v4 syntax
       "css/no-invalid-at-rules": "off",
+      "css/use-baseline": ["error", { allowSelectors: ["nesting"] }],
     },
   },
 ]);

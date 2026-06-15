@@ -14,6 +14,9 @@ authors:
   - name: Author Four
     institution: Institution Four
 conference: Conference Name
+doi:
+  url: https://doi.org/10.0000/example
+  text: 10.0000/example
 notes:
   - symbol: "*"
     text: author note one
@@ -57,6 +60,7 @@ import CarouselSlide from "./components/CarouselSlide.astro";
 import Wide from "./components/Wide.astro";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/starwind/tabs";
 import { Comparison } from "./components/Comparison.tsx";
+import BibTeX from "./components/BibTeX.astro";
 
 import outside from "./assets/outside.mp4";
 import dogsDiffc from "./assets/dogs-diffc.png"
@@ -102,7 +106,7 @@ Wrap a visual in a `Figure` component to add a caption.
 
 Use the `Comparison` component to compare two visuals with an interactive slider.
 
-<Comparison client:idle >
+<Comparison client:idle itemOneLabel="Compressed" itemTwoLabel="Ground truth">
   <Picture slot="itemOne" src={dogsDiffc} alt="Photo of two running dogs, lossily compressed using the DiffC algorithm" />
   <Picture slot="itemTwo" src={dogsTrue} alt="True photo of two dogs running side-by-side in shallow water" />
 </Comparison>
@@ -192,16 +196,14 @@ Add simple tables using [GitHub Flavored Markdown syntax](https://docs.github.co
 
 ## BibTeX citation
 
-Displaying the BibTeX entry for your paper in a code block makes it easy to copy and paste.
+Use the `BibTeX` component to display a paper citation with a copy button.
 
-```bibtex
-@misc{roman2024academic,
+<BibTeX text={String.raw`@misc{roman2024academic,
   author = "{Roman Hauksson}",
   title = "Academic Project Page Template",
   year = "2024",
   howpublished = "\url{https://research-template.roman.technology}",
-}
-```
+}`} />
 
 ## Bibliography
 
